@@ -1,0 +1,79 @@
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Get Hench</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'>
+    <link rel='stylesheet' href='styles.css'>
+</head>
+
+<body class='grey darken-4'>
+
+    <div class='nav z-depth-0'>
+        <div class='section center'>
+            <h3 class='white-text center'>
+                - Get Swole -
+            </h3>
+        </div>
+    </div>
+
+    <div class='section center'>
+        <p class='grey-text flow-text'>
+            A fitness trackers for big boys in training
+        </p>
+
+        <p class='grey-text'>
+            (big boys is a gender neutral term)
+        </p>
+    </div>
+
+    <div class='container section'>
+        <div class='row'>
+            <div class='col s12 l5'>
+                <button data-activity='hiking' class='active'>Hiking</button>
+                <button data-activity='bouldering'>Bouldering</button>
+                <button data-activity='kegels'>Kegels</button>
+                <button data-activity='twerking'>Twerking</button>
+            </div>
+            <div class='col s12 l6 push-l1'>
+                <div class='canvas'></div>
+            </div>
+        </div>
+        <div class='row'>
+            <form class='col m6 push-m3'>
+                <p class='flow-text grey-text center'>Have you done enough <span>Hiking</span> today?</p>
+                <input type='text' class='grey-text' id='cycling' placeholder='Distance in Metres' />
+                <p class='center pink-text error text-lighten-1'></p>
+            </form>
+        </div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-app.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-firestore.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyDFCpwtGhtDzFiOZaxkboEfMbLoozkqlRc",
+                authDomain: "d3-firebase-2070b.firebaseapp.com",
+                databaseURL: "https://d3-firebase-2070b.firebaseio.com",
+                projectId: "d3-firebase-2070b",
+                storageBucket: "d3-firebase-2070b.appspot.com",
+                messagingSenderId: "503206416930",
+                appId: "1:503206416930:web:8af843fe6310457b0ef07b",
+                measurementId: "G-7N2F2X1QPY"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+        </script>
+        <script src='https://d3js.org/d3.v5.min.js'></script>
+        <script src='index.js'></script>
+        <script src='graph.js'></script>
+</body>
+
+</html>
