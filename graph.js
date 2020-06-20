@@ -26,7 +26,45 @@ const yAxisGroup = graph.append('g')
 
 // data + firestore 
 const update = (data) => {
-    console.log(data)
+    //set scale domains 
+    x.domain(d3.extent(data, d => new Date(d.date)))
+    y.domain([0, d3.max(data, d => d.distance)])
+
+    //create circles for objects
+    const circles = graph.selectAll('circle')
+        .data(data)
+
+    //exit selection
+    circles.exit().remove()
+
+    //update current points
+    circles
+        .attr('cx', d => x(new Date(d.date)))
+        .attr('cy', d => y(d.distance))
+
+    //add new points
+    circles.enter()
+        .append('circle')
+        .attr('r', 4)
+        .attr('cx', d => x(new Date(d.date)))
+        .attr('cy', d => y(d.distance))
+        .attr('fill', '#ccc')
+
+    const xAxis = d3.axisBottom(x)
+        .ticks(6)
+        .tickFormat(d3.timeFormat('%b %d'))
+
+    const yAxis = d3.axisLeft(y)
+        .ticks(4)
+        .tickFormat(d => d + 'm')
+
+    xAxisGroup.call(xAxis)
+    yAxisGroup.call(yAxis)
+
+    xAxisGroup.selectAll('text')
+        .attr('transform', 'rotate(-40)')
+        .attr('text-anchor', 'end')
+
 }
 
 var data = []
