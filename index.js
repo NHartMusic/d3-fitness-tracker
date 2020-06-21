@@ -20,6 +20,8 @@ btns.forEach(btn => {
 
         formActivity.textContent = activity
 
+        update(data)
+
     })
 })
 
