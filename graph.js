@@ -16,9 +16,6 @@ const graph = svg.append('g')
 const x = d3.scaleTime().range([0, graphWidth])
 const y = d3.scaleLinear().range([graphHeight, 0])
 
-//line path element
-const path = graph.append('path')
-
 //axes groups
 const xAxisGroup = graph.append('g')
     .attr('class', 'x-axis')
@@ -31,6 +28,24 @@ const yAxisGroup = graph.append('g')
 const line = d3.line()
     .x(function (d) { return x(new Date(d.date)) })
     .y(function (d) { return y(d.distance) })
+
+//line path element
+const path = graph.append('path')
+
+//dotted lines
+const dottedLines = graph.append('g')
+    .attr('class', 'lines')
+    .style('opacity', 0)
+
+const xDottedLine = dottedLines.append('line')
+    .attr('stroke', '#aaa')
+    .attr('stroke-width', 1)
+    .attr('stroke-dasharray', 4)
+
+const yDottedLine = dottedLines.append('line')
+    .attr('stroke', '#aaa')
+    .attr('stroke-width', 1)
+    .attr('stroke-dasharray', 4)
 
 // data + firestore 
 const update = (data) => {
@@ -77,12 +92,28 @@ const update = (data) => {
                 .transition().duration(100)
                 .attr('r', 8)
                 .attr('fill', '#fff')
+
+            xDottedLine
+                .attr('x1', x(new Date(d.date)))
+                .attr('x2', x(new Date(d.date)))
+                .attr('y1', graphHeight)
+                .attr('y2', y(d.distance))
+
+            yDottedLine
+                .attr('x1', 0)
+                .attr('x2', x(new Date(d.date)))
+                .attr('y1', y(d.distance))
+                .attr('y2', y(d.distance))
+
+            dottedLines.style('opacity', 1)
         })
         .on('mouseleave', (d, i, n) => {
             d3.select(n[i])
                 .transition().duration(100)
                 .attr('r', 4)
                 .attr('fill', '#ccc')
+
+            dottedLines.style('opacity', 0)
         })
 
     const xAxis = d3.axisBottom(x)
